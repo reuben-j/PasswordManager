@@ -25,11 +25,11 @@ int main() {
     ofstream passwordFile;
     
     // to append to file, use the ios_base::app function which prevents overwriting of file
-    // passwordFile.open("passwordFile.txt", ios_base::app);
+    passwordFile.open("passwordFile.txt", ios_base::app);
     passwordFile.open("passwordFile.txt");
     passwordFile << nameToStore << " - " << passwordToStore << endl;
     passwordFile.close();
 
-    
+
     
 }

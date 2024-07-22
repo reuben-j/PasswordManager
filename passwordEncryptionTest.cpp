@@ -15,6 +15,10 @@ pair<string, int>encrypt(string password) { // function that returns pair from #
     for(int i = 0; i < password.length() + 1; i++) { // loop through each letter of original password
         if (password[i] >= 90) { // to ensure all ascii chars are within bounds (less than 127 and above 31)
         password[i] = password[i] - (keyEnc + i + 2); // ascii char above 90 gets a char lower than 90
+
+    } else if (password[i] < 90 && password[i] >= 70) {
+        password[i] = password[i] - (keyEnc + i + 2); // ascii char below 90 gets a char above 90
+
     } else {
         password[i] = password[i] + (keyEnc + i + 2); // ascii char below 90 gets a char above 90
     }
@@ -26,7 +30,7 @@ return make_pair(password, keyEnc); // return result in pair
 string deEncrypt(string encryptedPassword, int key) { // reverse engineer encryption function
     
     for(int i = 0; i < encryptedPassword.length(); i++) { // loop through each letter again
-        if(encryptedPassword[i] + (key + i) > 90) { // find out whether original char was above or below 90 to allocate original char accurately
+        if(encryptedPassword[i] + (key + i + 2) > 69) { // find out whether original char was above or below 90 to allocate original char accurately
             encryptedPassword[i] = encryptedPassword[i] + (key + i + 2);
         } else {
             encryptedPassword[i] = encryptedPassword[i] - (key + i + 2);
@@ -36,6 +40,8 @@ string deEncrypt(string encryptedPassword, int key) { // reverse engineer encryp
 }
 
  int main() {
+
+
 
 cout << "What is the password you would like to encrypt? ";
 string password;
@@ -47,8 +53,16 @@ cout << endl << "Password before encryption: " << password
     << endl << "After encryption: " << result.first 
     << endl << "Using the key of: " << result.second << endl;
 
-cout << "Password de-encrypted: " << deEncrypt(result.first, result.second);
+cout << "Password de-encrypted: " << deEncrypt(result.first, result.second) << endl;
 
 //write to new file
+ofstream passwordFile;
+ // to append to file, use the ios_base::app function which prevents overwriting of file
+passwordFile.open("encryptedPasswords.txt", ios_base::app);
+
+passwordFile << result.first << " - " << result.second << endl;
+
+// cout << "Woud you like to encrypt any other passwords? Yes or no?" << endl;
+
 
 }
