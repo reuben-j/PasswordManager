@@ -21,9 +21,11 @@ string deEncrypt(string encryptedPassword, int key) { // reverse engineer encryp
     return encryptedPassword; // return string of de-encrypted password
 }
  int main() {
-string passwordIdentifier;
+string passwordIdentifier, username;
 cout << "What is the identifying name of the password? ";
 cin >> passwordIdentifier;
+cout << "What is the username?";
+cin >> username;
 cout << "What is the password you would like to encrypt? ";
 string password;
 cin >> password;
@@ -41,7 +43,7 @@ ofstream passwordFile;
  // to append to file, use the ios_base::app function which prevents overwriting of file
 passwordFile.open("encryptedPasswordsNew.txt", ios_base::app);
 
-passwordFile << passwordIdentifier << " " << result.first << " " << result.second << endl;
+passwordFile << passwordIdentifier << " " << username << " " << result.first << " " << result.second << endl;
 
 // cout << "Woud you like to encrypt any other passwords? Yes or no?" << endl;
 
