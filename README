@@ -1,3 +1,1 @@
-This program aims to be able to take in the user's chosen password specifier and then the actual password
-and then using time_t to generate a pseudo random key to use in encrypting the password. The password is then stored 
-in a file, alongside the password specifier and the encryption key.
+This program aims to be able to take in the user's chosen password specifier and then the actual password and then using time_t to generate a pseudo random key to use in encrypting the password. The password is then stored in a file, alongside the password specifier and the encryption key.
