@@ -1,7 +1,6 @@
 #include <iostream> 
 #include <fstream>
 #include <ctime>
-#include <vector>
 #include <utility>
 using namespace std;
 
@@ -21,18 +20,20 @@ string deEncrypt(string encryptedPassword, int key) { // reverse engineer encryp
     return encryptedPassword; // return string of de-encrypted password
 }
  int main() {
-string passwordIdentifier, username;
+string passwordIdentifier, username, password;
+bool moreQuestions;
 cout << "What is the identifying name of the password? ";
-cin >> passwordIdentifier;
-cout << "What is the username?";
-cin >> username;
-cout << "What is the password you would like to encrypt? ";
-string password;
+cin >> passwordIdentifier; // take in user password identifier
+cout << "What is the username? ";
+cin >> username; // take in username
+cout << "What is the password you would like to encrypt? "; // take in password to encrypt
 cin >> password;
 
 pair<string, int> result = encrypt(password); // create new pair with string of encrypted password and int of key used
+// pair is used because this is what can be done to pass two parameters to function
 
-cout << endl << "Password before encryption: " << password 
+cout << "Username: " << username << endl
+    << endl << "Password before encryption: " << password 
     << endl << "After encryption: " << result.first 
     << endl << "Using the key of: " << result.second << endl;
 
@@ -43,9 +44,37 @@ ofstream passwordFile;
  // to append to file, use the ios_base::app function which prevents overwriting of file
 passwordFile.open("encryptedPasswordsNew.txt", ios_base::app);
 
-passwordFile << passwordIdentifier << " " << username << " " << result.first << " " << result.second << endl;
+passwordFile << passwordIdentifier << " - " << username << " - " << result.first << " - " << result.second << endl;
 
-// cout << "Woud you like to encrypt any other passwords? Yes or no?" << endl;
+passwordFile.close();
 
+string morePasswords;
 
+cout << "Would you like to store any more passwords? Yes or no? ";
+cin >> morePasswords;
+if(morePasswords == "Yes") {
+
+cout << "What is the identifying name of the password? ";
+cin >> passwordIdentifier; // take in user password identifier
+cout << "What is the username? ";
+cin >> username; // take in username
+cout << "What is the password you would like to encrypt? "; // take in password to encrypt
+cin >> password;
+
+pair<string, int> result = encrypt(password); // create new pair with string of encrypted password and int of key used
+// pair is used because this is what can be done to pass two parameters to function
+
+cout << "Username: " << username << endl
+    << endl << "Password before encryption: " << password 
+    << endl << "After encryption: " << result.first 
+    << endl << "Using the key of: " << result.second << endl;
+
+cout << deEncrypt(result.first, result.second);
+
+passwordFile.open("encryptedPasswordsNew.txt", ios_base::app);
+
+passwordFile << passwordIdentifier << " - " << username << " - " << result.first << " - " << result.second << endl;
+
+passwordFile.close();
+    } 
 }
