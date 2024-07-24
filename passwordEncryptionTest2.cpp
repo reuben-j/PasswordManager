@@ -14,6 +14,7 @@ pair<string, int>encrypt(string password) { // function that returns pair from #
     }
 return make_pair(password, keyEnc); // return result in pair
 }
+
 string deEncrypt(string encryptedPassword, int key) { // reverse engineer encryption function
     for(int i = 0; i < encryptedPassword.length(); i++) {
         encryptedPassword[i] = encryptedPassword[i] + 15 - key + (i % key) - i;
@@ -21,6 +22,7 @@ string deEncrypt(string encryptedPassword, int key) { // reverse engineer encryp
     return encryptedPassword; // return string of de-encrypted password
 }
 
+// function to retrieve identifier, username and password from user
 tuple<string, string, string> getInfo() {
 string passwordIdentifier, username, password;
 
@@ -33,15 +35,11 @@ cin >> password;
 
 auto newTuple = make_tuple(passwordIdentifier, username, password);
 return newTuple;
-
 }
 
-
 int main() {
-bool moreQuestions;
-string password;
 
-tuple<string, string, string> newTuple = getInfo();
+tuple<string, string, string> newTuple = getInfo(); // retrieve user input and store in tuple
 
 pair<string, int> result = encrypt(get<2>(newTuple)); // create new pair with string of encrypted password and int of key used
 // pair is used because this is what can be done to pass two parameters to function
@@ -54,11 +52,13 @@ cout << endl << "Username: " << get<1>(newTuple)
 
 //write to new file
 ofstream passwordFile;
+
  // to append to file, use the ios_base::app function which prevents overwriting of file
 passwordFile.open("encryptedPasswordsNew.txt", ios_base::app);
 
+// write to file
 passwordFile << get<0>(newTuple) << " - " << get<1>(newTuple) << " - " << result.first << " - " << result.second << endl;
 
+// close file
 passwordFile.close();
-
-    } 
+} 
