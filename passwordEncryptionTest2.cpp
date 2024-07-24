@@ -22,7 +22,7 @@ string deEncrypt(string encryptedPassword, int key) { // reverse engineer encryp
     return encryptedPassword; // return string of de-encrypted password
 }
 
-// function to retrieve identifier, username and password from user
+// function to retrieve identifier, username and password from user and return it as a tuple
 tuple<string, string, string> getInfo() {
 string passwordIdentifier, username, password;
 
@@ -33,8 +33,8 @@ cin >> username; // take in username
 cout << "What is the password you would like to encrypt? "; // take in password to encrypt
 cin >> password;
 
-auto newTuple = make_tuple(passwordIdentifier, username, password);
-return newTuple;
+auto newTuple = make_tuple(passwordIdentifier, username, password); // create, allocate tuple
+return newTuple; // return tuple
 }
 
 int main() {
